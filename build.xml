@@ -1,0 +1,40 @@
+<project name="JsTestDriver-Boilerplate" default="test" basedir=".">
+  <description>Sample boilerplate for a test driven JS/CSS project.</description>
+
+  <!-- set global properties for this build -->
+  <property name="server.port" value="8081"/>
+
+  <property name="lib.dir" location="lib"/>
+  <property name="jstestdriver.jar" location="${lib.dir}/jsTestDriver-1.2.2.jar"/>
+  <property name="test.dir" location="src-test"/>
+  <property name="jstestdriver.conf" location="jsTestDriver.conf"/>
+  <property name="jstestdriver.output.dir" location="${test.dir}/output"/>
+
+  <property name="browser.safari" value="/Applications/Safari.app/Contents/MacOS/Safari"/>
+  <property name="browser.safari.batchfile" value="${lib.dir}/launch-safari.sh"/>
+  <property name="browser.firefox" value="/Applications/Firefox.app/Contents/MacOS/firefox"/>
+
+  <target name="test">
+    <java jar="${jstestdriver.jar}" fork="true">
+      <arg value="--config"/>
+      <arg value="${jstestdriver.conf}"/>
+      <arg value="--browser"/>
+      <arg value="${browser.firefox},${browser.safari.batchfile}"/>
+	  <arg value="--tests"/>
+      <arg value="all"/>
+      <arg value="--port"/>
+      <arg value="${server.port}"/>
+      <arg value="--testOutput"/>
+	  <arg value="${jstestdriver.output.dir}"/>
+	</java>
+
+	<exec executable="/bin/bash" dir="${lib.dir}">
+        <arg value="quit-safari.sh" />
+    </exec>
+  </target>
+
+  <target name="clean">
+  	<delete dir="${jstestdriver.output.dir}"/>
+  	<mkdir dir="${jstestdriver.output.dir}"/>
+  </target>
+</project>
