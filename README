@@ -15,5 +15,5 @@ Usage:
    source code from src/*.js (Configurable in jsTestDriver.conf)
       ant
 
-The default config is setup for for MacOS, would be happy to merge a
+The default config is setup for MacOS, would be happy to merge a
 working config for Windows.
