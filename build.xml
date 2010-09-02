@@ -10,16 +10,29 @@
   <property name="jstestdriver.conf" location="jsTestDriver.conf"/>
   <property name="jstestdriver.output.dir" location="${test.dir}/output"/>
 
-  <property name="browser.safari" value="/Applications/Safari.app/Contents/MacOS/Safari"/>
-  <property name="browser.safari.batchfile" value="${lib.dir}/launch-safari.sh"/>
-  <property name="browser.firefox" value="/Applications/Firefox.app/Contents/MacOS/firefox"/>
+  <property name="browser.safari" value="${lib.dir}/launch-safari.sh"/>
+  <property name="browser.chrome" value="${lib.dir}/launch-chrome.sh"/>
+  <property name="browser.firefox" value="${lib.dir}/launch-firefox.sh"/>
+  <!--<property name="browser.firefox" value="/Applications/Firefox.app/Contents/MacOS/firefox"/>-->
+
+  <target name="install">
+  	<chmod perm="+x" type="file">
+	  <fileset dir="${lib.dir}">
+	    <include name="*.sh"/>
+	  </fileset>
+	</chmod>
+    <!-- Fails silently if the profile already exists. -->
+  	<exec executable="/bin/bash" dir="${lib.dir}">
+      <arg value="init-firefox.sh" />
+    </exec>
+  </target>
 
   <target name="test">
     <java jar="${jstestdriver.jar}" fork="true">
       <arg value="--config"/>
       <arg value="${jstestdriver.conf}"/>
       <arg value="--browser"/>
-      <arg value="${browser.firefox},${browser.safari.batchfile}"/>
+      <arg value="${browser.firefox},${browser.safari},${browser.chrome}"/>
 	  <arg value="--tests"/>
       <arg value="all"/>
       <arg value="--port"/>
@@ -28,8 +41,9 @@
 	  <arg value="${jstestdriver.output.dir}"/>
 	</java>
 
+	<!-- FIXME this will quit all Safari windows, even existing ones. -->
 	<exec executable="/bin/bash" dir="${lib.dir}">
-        <arg value="quit-safari.sh" />
+      <arg value="quit-safari.sh" />
     </exec>
   </target>
 
