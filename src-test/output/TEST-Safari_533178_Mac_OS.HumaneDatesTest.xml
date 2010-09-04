@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Safari_533178_Mac_OS.HumaneDatesTest" errors="0" failures="1" tests="2" time="0.023">
+<testcase classname="Safari_533178_Mac_OS.HumaneDatesTest" name="testNow" time="0.0040"/>
+<testcase classname="Safari_533178_Mac_OS.HumaneDatesTest" name="testMinute" time="0.019">
+<failure type="failed" message="expected &quot;1 Minute&quot; but was &quot;Invalid Date&quot;"/>
+</testcase>
+</testsuite>

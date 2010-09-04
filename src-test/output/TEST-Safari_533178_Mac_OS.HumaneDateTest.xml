@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Safari_533178_Mac_OS.HumaneDateTest" errors="0" failures="1" tests="1" time="0.0090">
+<testcase classname="Safari_533178_Mac_OS.HumaneDateTest" name="testTrue" time="0.0090">
+<failure type="failed" message="expected &quot;Now.&quot; but was &quot;Just Now&quot;"/>
+</testcase>
+</testsuite>

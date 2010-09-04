@@ -1,0 +1,3 @@
+A better way to display relative dates. Instead of a raw date
+string, this script will return strings like "2 hours ago" or
+"in 5 days."

@@ -11,59 +11,101 @@
  * Licensed under the MIT license.
  */
 
-function humane_date(date_str){
-	var time_formats = [
-		[60, 'Just Now'],
-		[90, '1 Minute'], // 60*1.5
-		[3600, 'Minutes', 60], // 60*60, 60
-		[5400, '1 Hour'], // 60*60*1.5
-		[86400, 'Hours', 3600], // 60*60*24, 60*60
-		[129600, '1 Day'], // 60*60*24*1.5
-		[604800, 'Days', 86400], // 60*60*24*7, 60*60*24
-		[907200, '1 Week'], // 60*60*24*7*1.5
-		[2628000, 'Weeks', 604800], // 60*60*24*(365/12), 60*60*24*7
-		[3942000, '1 Month'], // 60*60*24*(365/12)*1.5
-		[31536000, 'Months', 2628000], // 60*60*24*365, 60*60*24*(365/12)
-		[47304000, '1 Year'], // 60*60*24*365*1.5
-		[3153600000, 'Years', 31536000], // 60*60*24*365*100, 60*60*24*365
-		[4730400000, '1 Century'], // 60*60*24*365*100*1.5
-	];
+function humane_date(date, compareTo){
+	var lang = {
+			ago: 'Ago',
+			now: 'Just Now',
+			minute: 'Minute',
+			minutes: 'Minutes',
+			hour: 'Hour',
+			hours: 'Hours',
+			day: 'Day',
+			days: 'Days',
+			week: 'Week',
+			weeks: 'Weeks',
+			month: 'Month',
+			months: 'Months',
+			year: 'Year',
+			years: 'Years'
+		},
+		formats = [
+			[60, lang.now],
+			[3600, lang.minute, lang.minutes, 60], // 60 minutes, 1 minute
+			[86400, lang.hour, lang.hours, 3600], // 24 hours, 1 hour
+			[604800, lang.day, lang.days, 86400], // 7 days, 1 day
+			[2628000, lang.week, lang.weeks, 604800], // ~1 month, 1 week
+			[31536000, lang.month, lang.months, 2628000], // 1 year, ~1 month
+			[Infinity, lang.year, lang.years, 31536000], // Infinity, 1 year
+		],
+		date = typeof date == 'string' ?
+						new Date(('' + date).replace(/-/g,"/").replace(/[TZ]/g," ")) :
+						date,
+		compareTo = compareTo || new Date,
+		seconds = (compareTo - date + (compareTo.getTimezoneOffset() - date.getTimezoneOffset()) * 60000) / 1000,
+		token;
 
-	var time = ('' + date_str).replace(/-/g,"/").replace(/[TZ]/g," "),
-		dt = new Date,
-		seconds = ((dt - new Date(time) + (dt.getTimezoneOffset() * 60000)) / 1000),
-		token = ' Ago',
-		i = 0,
-		format;
-
-	if (seconds < 0) {
+	if(seconds < 0) {
 		seconds = Math.abs(seconds);
 		token = '';
+	} else {
+		token = ' ' + lang.ago;
 	}
 
-	while (format = time_formats[i++]) {
-		if (seconds < format[0]) {
-			if (format.length == 2) {
-				return format[1] + (i > 1 ? token : ''); // Conditional so we don't return Just Now Ago
-			} else {
-				return Math.round(seconds / format[2]) + ' ' + format[1] + (i > 1 ? token : '');
+	/*
+	 * 0 seconds && < 60 seconds	Now
+	 * 60 seconds					1 Minute
+	 * > 60 seconds && < 60 minutes	X Minutes
+	 * 60 minutes					1 Hour		
+	 * > 60 minutes && < 24 hours	X Hours
+	 * 24 hours						1 Day
+	 * > 24 hours && < 7 days		X Days
+	 * 7 days						1 Week
+	 * > 7 days && < ~ 1 Month		X Weeks
+	 * ~ 1 Month					1 Month
+	 * > ~ 1 Month && < 1 Year		X Months
+	 * 1 Year						1 Year
+	 * > 1 Year						X Years
+	 * 
+	 * Single units are +10%. 1 Year shows first at 1 Year + 10%
+	 */
+
+	function normalize(val, single)
+	{
+		var margin = 0.1;
+		if(val >= single && val <= single * (1+margin)) {
+			return single;
+		}
+		return val;
+	}
+
+	for(var i = 0, format = formats[0]; formats[i]; format = formats[++i]) {
+		if(seconds < format[0]) {
+			if(i === 0) {
+				// Now
+				return format[1];
 			}
+
+			var val = Math.ceil(normalize(seconds, format[3]) / (format[3]));
+			return val + 
+					' ' +
+					(val != 1 ? format[2] : format[1]) +
+					(i > 0 ? token : '');
 		}
 	}
-
-	// overflow for centuries
-	if(seconds > 4730400000)
-		return Math.round(seconds / 4730400000) + ' Centuries' + token;
-
-	return date_str;
 };
 
 if(typeof jQuery != 'undefined') {
-	jQuery.fn.humane_dates = function(){
-		return this.each(function(){
-			var date = humane_date(this.title);
-			if(date && jQuery(this).text() != date) // don't modify the dom if we don't have to
-				jQuery(this).text(date);
+	jQuery.fn.humane_dates = function()
+	{
+		return this.each(function()
+		{
+			var $t = jQuery(this),
+				date = humane_date($t.attr('title'));
+
+			if(date && $t.text() != date) {
+				// don't modify the dom if we don't have to
+				$t.text(date);
+			}
 		});
 	};
 }
