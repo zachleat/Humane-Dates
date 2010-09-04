@@ -1,3 +1,14 @@
-A better way to display relative dates. Instead of a raw date
-string, this script will return strings like "2 hours ago" or
-"in 5 days."
+A better way to display relative dates using JavaScript. Instead of a raw date
+string, this script will return strings like "2 hours ago" or "5 days".
+
+Copyright (c) 2008 Dean Landolt (deanlandolt.com)
+Re-write by Zach Leatherman (zachleat.com)
+ 
+Adopted from the John Resig's pretty.js
+    at http://ejohn.org/blog/javascript-pretty-date
+and henrah's proposed modification 
+    at http://ejohn.org/blog/javascript-pretty-date/#comment-297458
+
+Licensed under the MIT license.
+
+See more at http://www.zachleat.com/web/2008/03/23/yet-another-pretty-date-javascript/
