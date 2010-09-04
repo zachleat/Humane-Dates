@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Safari_533178_Mac_OS.SampleTest" errors="0" failures="0" tests="2" time="0.0020">
-<testcase classname="Safari_533178_Mac_OS.SampleTest" name="testTrue" time="0.0020"/>
-<testcase classname="Safari_533178_Mac_OS.SampleTest" name="testFalse" time="0.0"/>
-</testsuite>
