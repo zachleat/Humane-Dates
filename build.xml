@@ -13,16 +13,15 @@
   <property name="browser.safari" value="${lib.dir}/launch-safari.sh"/>
   <property name="browser.chrome" value="${lib.dir}/launch-chrome.sh"/>
   <property name="browser.firefox" value="${lib.dir}/launch-firefox.sh"/>
-  <!--<property name="browser.firefox" value="/Applications/Firefox.app/Contents/MacOS/firefox"/>-->
 
   <target name="install">
-  	<chmod perm="+x" type="file">
-	  <fileset dir="${lib.dir}">
-	    <include name="*.sh"/>
-	  </fileset>
-	</chmod>
+    <chmod perm="+x" type="file">
+      <fileset dir="${lib.dir}">
+        <include name="*.sh"/>
+      </fileset>
+    </chmod>
     <!-- Fails silently if the profile already exists. -->
-  	<exec executable="/bin/bash" dir="${lib.dir}">
+    <exec executable="/bin/bash" dir="${lib.dir}">
       <arg value="init-firefox.sh" />
     </exec>
   </target>
@@ -34,22 +33,22 @@
       <arg value="--browser"/>
       <!--<arg value="${browser.firefox},${browser.safari},${browser.chrome}"/>-->
       <arg value="${browser.chrome}"/>
-	  <arg value="--tests"/>
+      <arg value="--tests"/>
       <arg value="all"/>
       <arg value="--port"/>
       <arg value="${server.port}"/>
       <arg value="--testOutput"/>
-	  <arg value="${jstestdriver.output.dir}"/>
-	</java>
+      <arg value="${jstestdriver.output.dir}"/>
+    </java>
 
-	<!-- FIXME this will quit all Safari windows, even existing ones. -->
-	<exec executable="/bin/bash" dir="${lib.dir}">
+    <!-- FIXME this will quit all Safari windows, even existing ones. -->
+    <exec executable="/bin/bash" dir="${lib.dir}">
       <arg value="quit-safari.sh" />
     </exec>
   </target>
 
   <target name="clean">
-  	<delete dir="${jstestdriver.output.dir}"/>
-  	<mkdir dir="${jstestdriver.output.dir}"/>
+    <delete dir="${jstestdriver.output.dir}"/>
+    <mkdir dir="${jstestdriver.output.dir}"/>
   </target>
 </project>
