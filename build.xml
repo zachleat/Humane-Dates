@@ -27,12 +27,13 @@
   </target>
 
   <target name="test">
+    <mkdir dir="${jstestdriver.output.dir}"/>
+
     <java jar="${jstestdriver.jar}" fork="true">
       <arg value="--config"/>
       <arg value="${jstestdriver.conf}"/>
       <arg value="--browser"/>
-      <!--<arg value="${browser.firefox},${browser.safari},${browser.chrome}"/>-->
-      <arg value="${browser.chrome}"/>
+      <arg value="${browser.firefox},${browser.safari},${browser.chrome}"/>
       <arg value="--tests"/>
       <arg value="all"/>
       <arg value="--port"/>
