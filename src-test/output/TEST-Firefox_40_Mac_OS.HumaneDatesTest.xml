@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Firefox_40_Mac_OS.HumaneDatesTest" errors="0" failures="1" tests="2" time="0.0030">
-<testcase classname="Firefox_40_Mac_OS.HumaneDatesTest" name="testNow" time="0.0010"/>
-<testcase classname="Firefox_40_Mac_OS.HumaneDatesTest" name="testMinute" time="0.0020">
-<failure type="failed" message="expected &quot;1 Minute&quot; but was &quot;Invalid Date&quot;">/src-test/humanDatesTest.js:10
-</failure>
-</testcase>
-</testsuite>

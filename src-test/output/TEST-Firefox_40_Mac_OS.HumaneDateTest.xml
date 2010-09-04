@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Firefox_40_Mac_OS.HumaneDateTest" errors="0" failures="1" tests="1" time="0.0">
-<testcase classname="Firefox_40_Mac_OS.HumaneDateTest" name="testTrue" time="0.0">
-<failure type="failed" message="expected &quot;Now.&quot; but was &quot;Just Now&quot;">/src-test/sampleTest.js:4
-</failure>
-</testcase>
-</testsuite>
