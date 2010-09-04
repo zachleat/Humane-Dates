@@ -28,6 +28,8 @@
   </target>
 
   <target name="test">
+    <mkdir dir="${jstestdriver.output.dir}"/>
+
     <java jar="${jstestdriver.jar}" fork="true">
       <arg value="--config"/>
       <arg value="${jstestdriver.conf}"/>
