@@ -11,7 +11,7 @@
  * Licensed under the MIT license.
  */
 
-function humane_date(date, compareTo){
+function humaneDate(date, compareTo){
 	var lang = {
 			ago: 'Ago',
 			now: 'Just Now',
@@ -37,11 +37,18 @@ function humane_date(date, compareTo){
 			[31536000, lang.month, lang.months, 2628000], // 1 year, ~1 month
 			[Infinity, lang.year, lang.years, 31536000], // Infinity, 1 year
 		],
-		date = typeof date == 'string' ?
-						new Date(('' + date).replace(/-/g,"/").replace(/[TZ]/g," ")) :
-						date,
+		isString = typeof date == 'string',
+		date = isString ?
+					new Date(('' + date).replace(/-/g,"/").replace(/[TZ]/g," ")) :
+					date,
 		compareTo = compareTo || new Date,
-		seconds = (compareTo - date + (compareTo.getTimezoneOffset() - date.getTimezoneOffset()) * 60000) / 1000,
+		seconds = (compareTo - date +
+						(compareTo.getTimezoneOffset() -
+							// if we received a GMT time from a string, doesn't include time zone bias
+							// if we got a date object, the time zone is built in, we need to remove it.
+							(isString ? 0 : date.getTimezoneOffset())
+						) * 60000
+					) / 1000,
 		token;
 
 	if(seconds < 0) {
@@ -95,16 +102,16 @@ function humane_date(date, compareTo){
 };
 
 if(typeof jQuery != 'undefined') {
-	jQuery.fn.humane_dates = function()
+	jQuery.fn.humaneDates = function()
 	{
 		return this.each(function()
 		{
 			var $t = jQuery(this),
-				date = humane_date($t.attr('title'));
+				date = humaneDate($t.attr('title'));
 
-			if(date && $t.text() != date) {
+			if(date && $t.html() != date) {
 				// don't modify the dom if we don't have to
-				$t.text(date);
+				$t.html(date);
 			}
 		});
 	};

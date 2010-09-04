@@ -1,6 +1,26 @@
 A better way to display relative dates using JavaScript. Instead of a raw date
 string, this script will return strings like "2 hours ago" or "5 days".
 
+
+JavaScript Usage: (returns string)
+
+  humaneDate(new Date);
+  humaneDate('2008-01-28T20:24:17Z');
+
+
+jQuery Plugin Usage: (sets HTML of elements)
+
+  <span class="humaneDate" title="2008-01-28T20:24:17Z">January 1, 2008 20:24:17 GMT</span>
+
+  $('span.humaneDate').humaneDates();
+
+
+To run the full test suite:
+  ant install
+  ant
+
+
+
 Copyright (c) 2008 Dean Landolt (deanlandolt.com)
 Re-write by Zach Leatherman (zachleat.com)
  
