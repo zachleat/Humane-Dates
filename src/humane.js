@@ -35,7 +35,7 @@ function humaneDate(date, compareTo){
             [604800, lang.day, lang.days, 86400], // 7 days, 1 day
             [2628000, lang.week, lang.weeks, 604800], // ~1 month, 1 week
             [31536000, lang.month, lang.months, 2628000], // 1 year, ~1 month
-            [Infinity, lang.year, lang.years, 31536000], // Infinity, 1 year
+            [Infinity, lang.year, lang.years, 31536000] // Infinity, 1 year
         ],
         isString = typeof date == 'string',
         date = isString ?
