@@ -2,18 +2,19 @@
  * Javascript Humane Dates
  * Copyright (c) 2008 Dean Landolt (deanlandolt.com)
  * Re-write by Zach Leatherman (zachleat.com)
- * 
+ *
  * Adopted from the John Resig's pretty.js
  * at http://ejohn.org/blog/javascript-pretty-date
- * and henrah's proposed modification 
+ * and henrah's proposed modification
  * at http://ejohn.org/blog/javascript-pretty-date/#comment-297458
- * 
+ *
  * Licensed under the MIT license.
  */
 
 function humaneDate(date, compareTo){
     var lang = {
             ago: 'Ago',
+            from: 'From Now',
             now: 'Just Now',
             minute: 'Minute',
             minutes: 'Minutes',
@@ -53,7 +54,7 @@ function humaneDate(date, compareTo){
 
     if(seconds < 0) {
         seconds = Math.abs(seconds);
-        token = '';
+        token = ' ' + lang.from;
     } else {
         token = ' ' + lang.ago;
     }
@@ -72,7 +73,7 @@ function humaneDate(date, compareTo){
      * > ~ 1 Month && < 1 Year          X Months
      * 1 Year                           1 Year
      * > 1 Year                         X Years
-     * 
+     *
      * Single units are +10%. 1 Year shows first at 1 Year + 10%
      */
 
@@ -93,7 +94,7 @@ function humaneDate(date, compareTo){
             }
 
             var val = Math.ceil(normalize(seconds, format[3]) / (format[3]));
-            return val + 
+            return val +
                     ' ' +
                     (val != 1 ? format[2] : format[1]) +
                     (i > 0 ? token : '');
