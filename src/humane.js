@@ -108,7 +108,7 @@ if(typeof jQuery != 'undefined') {
         return this.each(function()
         {
             var $t = jQuery(this),
-                date = humaneDate($t.attr('title'));
+                date = humaneDate($t.attr('datetime')) || humaneDate($t.attr('title'));
 
             if(date && $t.html() != date) {
                 // don't modify the dom if we don't have to
