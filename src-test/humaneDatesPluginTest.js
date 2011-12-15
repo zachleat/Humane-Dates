@@ -38,3 +38,24 @@ HumaneDatesPluginTest.prototype.testMinutes = function()
     assertEquals('2 Minutes', jQuery('span').html());
 };
 
+HumaneDatesPluginTest.prototype.testHtml5 = function()
+{
+    var d = new Date;
+    d.setTime(d.getTime() + 120*1000);
+
+    jQuery(document.body).append('<time datetime="' + this.getUTCDate(d) + '">test</time>');
+    jQuery('time').humaneDates();
+
+    assertEquals('2 Minutes', jQuery('time').html());
+};
+
+HumaneDatesPluginTest.prototype.testLowercase = function()
+{
+    var d = new Date;
+    d.setTime(d.getTime() + 120*1000);
+
+    jQuery(document.body).append('<time datetime="' + this.getUTCDate(d) + '">test</time>');
+    jQuery('time').humaneDates({'lowercase': true});
+
+    assertEquals('2 minutes', jQuery('time').html());
+};
