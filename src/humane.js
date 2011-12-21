@@ -12,9 +12,14 @@
  */
 
 function humaneDate(date, compareTo){
+
+    if(!date) {
+        return;
+    }
+
     var lang = {
             ago: 'Ago',
-            from: 'From Now',
+            from: '',
             now: 'Just Now',
             minute: 'Minute',
             minutes: 'Minutes',
@@ -54,9 +59,9 @@ function humaneDate(date, compareTo){
 
     if(seconds < 0) {
         seconds = Math.abs(seconds);
-        token = ' ' + lang.from;
+        token = lang.from ? ' ' + lang.from : '';
     } else {
-        token = ' ' + lang.ago;
+        token = lang.ago ? ' ' + lang.ago : '';
     }
 
     /*
@@ -105,14 +110,16 @@ function humaneDate(date, compareTo){
 if(typeof jQuery != 'undefined') {
     jQuery.fn.humaneDates = function(options)
     {
-        var settings = $.extend({
+        var settings = jQuery.extend({
             'lowercase': false
         }, options);
 
         return this.each(function()
         {
             var $t = jQuery(this),
-                date = humaneDate($t.attr('datetime')) || humaneDate($t.attr('title'));
+                date = $t.attr('datetime') || $t.attr('title');
+
+            date = humaneDate(date);
 
             if(date && settings['lowercase']) {
                 date = date.toLowerCase();
