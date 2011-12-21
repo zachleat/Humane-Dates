@@ -103,12 +103,20 @@ function humaneDate(date, compareTo){
 };
 
 if(typeof jQuery != 'undefined') {
-    jQuery.fn.humaneDates = function()
+    jQuery.fn.humaneDates = function(options)
     {
+        var settings = $.extend({
+            'lowercase': false
+        }, options);
+
         return this.each(function()
         {
             var $t = jQuery(this),
-                date = humaneDate($t.attr('title'));
+                date = humaneDate($t.attr('datetime')) || humaneDate($t.attr('title'));
+
+            if(date && settings['lowercase']) {
+                date = date.toLowerCase();
+            }
 
             if(date && $t.html() != date) {
                 // don't modify the dom if we don't have to
