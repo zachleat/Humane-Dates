@@ -11,13 +11,15 @@
  * Licensed under the MIT license.
  */
 
-function humaneDate(date, compareTo){
+function humaneDate(date, compareTo, opts){
 
     if(!date) {
         return;
     }
 
-    var lang = {
+    opts = opts || {};
+
+    var lang = opts.lang || {
             ago: 'Ago',
             from: '',
             now: 'Just Now',
@@ -34,7 +36,7 @@ function humaneDate(date, compareTo){
             year: 'Year',
             years: 'Years'
         },
-        formats = [
+        formats = opts.formats || [
             [60, lang.now],
             [3600, lang.minute, lang.minutes, 60], // 60 minutes, 1 minute
             [86400, lang.hour, lang.hours, 3600], // 24 hours, 1 hour
