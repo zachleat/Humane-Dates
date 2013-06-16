@@ -58,7 +58,7 @@
 
 		var isString = typeof date == 'string',
 			date = isString ?
-						new Date(('' + date).replace(/-/g,"/").replace(/[TZ]/g," ")) :
+						new Date(('' + date).replace(/-/g,"/").replace(/T|(?:\.\d+)?Z/g," ")) :
 						date,
 			compareTo = compareTo || new Date,
 			seconds = (compareTo - date +

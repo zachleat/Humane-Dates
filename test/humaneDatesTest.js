@@ -19,6 +19,13 @@ HumaneDatesTest.prototype.testNowAgoMax = function()
     assertEquals('Just Now', humaneDate(d));
 };
 
+HumaneDatesTest.prototype.testISO8601WithFractionalSeconds = function()
+{
+    var d = new Date;
+    d.setTime(d.getTime() - 59.1*1000);
+    assertEquals('Just Now', humaneDate(d.toISOString()));
+};
+
 HumaneDatesTest.prototype.testMinute = function()
 {
     var d = new Date;
