@@ -15,21 +15,21 @@
 ;(function(root){
 
 	var lang = {
-			ago: 'Ago',
+			ago: 'Atrás',
 			from: '',
-			now: 'Just Now',
-			minute: 'Minute',
-			minutes: 'Minutes',
-			hour: 'Hour',
-			hours: 'Hours',
-			day: 'Day',
-			days: 'Days',
-			week: 'Week',
-			weeks: 'Weeks',
-			month: 'Month',
-			months: 'Months',
-			year: 'Year',
-			years: 'Years'
+			now: 'Agora',
+			minute: 'Minuto',
+			minutes: 'Minutos',
+			hour: 'Hora',
+			hours: 'Horas',
+			day: 'Dia',
+			days: 'Dias',
+			week: 'Semana',
+			weeks: 'Semanas',
+			month: 'Mês',
+			months: 'Meses',
+			year: 'Ano',
+			years: 'Anos'
 		},
 		formats = [
 			[60, lang.now],
