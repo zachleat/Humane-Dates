@@ -1,3 +1,6 @@
+Humane-Dates
+============
+
 A better way to display relative dates using JavaScript. Instead of a raw date
 string, this script will return strings like "2 hours ago" or "5 days".
 
